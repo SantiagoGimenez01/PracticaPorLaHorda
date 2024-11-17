@@ -1,17 +1,19 @@
 class Personaje{
-    var fuerza
-    var inteligencia
+    const fuerza
+    const inteligencia
     var rol
-    var property mascota
 
     method potencialOfensivo() = fuerza * 10 + rol.extra()
     method esGroso() = self.esInteligente() || self.esGrosoEnSuRol()
-    method esInteligente() = inteligencia > 50
+    method esInteligente()
     method esGrosoEnSuRol() = rol.cumpleExigencia()
+    method cambiarDeRol(nuevoRol){
+        rol = nuevoRol
+    }
 }
 
 class Humanos inherits Personaje{
-
+    override method esInteligente() = inteligencia > 50
 }
 
 class Orcos inherits Personaje{
@@ -21,10 +23,18 @@ class Orcos inherits Personaje{
 }
 
 class Mascota{
-    var fuerza
-    var edad
+    const fuerza
+    const edad
     const tieneGarras
 
-    method potencialOfensivo() = if(tieneGarras) return fuerza * 2 else return fuerza
+    method potencialOfensivo() = if(tieneGarras) fuerza * 2 else fuerza
     method esLongeva() = edad > 10
+}
+
+class Ejercito{
+    const property personajes = []
+
+    method invadir(localidad) = localidad.serInvadidaPor(self)
+    method potencialOfensivo() = personajes.sum({personaje => personaje.potencialOfensivo()})
+    method mejoresGuerreros() = personajes.sortedBy({uno, otro => uno.potencialOfensivo() >= otro.potencialOfensivo()}).take(10)
 }

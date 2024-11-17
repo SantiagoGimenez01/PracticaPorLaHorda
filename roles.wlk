@@ -8,9 +8,10 @@ object brujo{
     method cumpleExigencia(alguien) = true
 }
 
-object cazador{
+class Cazador{
+    var property mascota
 
     method extra(personaje) = personaje.mascota().potencialOfensivo()
-    method cumpleExigencia(alguien) = alguien.mascota().esLongeva() 
+    method cumpleExigencia(alguien) = self.mascota().esLongeva() 
 }
 
